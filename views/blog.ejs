@@ -1,0 +1,11 @@
+<%- include("./partials/header.ejs") %>
+
+<h1><%= blog.Author%></h1>
+<img src="<%=blog.image%>">
+<h1><%= blog.discription%></h1>
+
+<button>edit</button>
+<form action="/blogs/<%=blog._id%>?_method=DELETE" method = "Post">
+    <input type="submit" value ="delete">
+</form>
+<%- include("./partials/footer.ejs") %>

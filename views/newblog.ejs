@@ -1,0 +1,14 @@
+<%- include("./partials/header.ejs") %>
+   
+    <form action="/blogs" method="POST">
+        <label for="author">Author Name</label>
+        <input id="author" name="blog[author]" type="text", value="name">
+        <label for="image">Author Name</label>
+        <input id="image" name="blog[image]" type="text", value="image">
+        <label for="discription">Author Name</label>
+        <input id = "discription" name="blog[discription]" type="text", value="discription">
+        <input type="submit" value="submit">
+    </form>
+          
+<%- include("./partials/footer.ejs") %>
+
