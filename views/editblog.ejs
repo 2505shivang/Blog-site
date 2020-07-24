@@ -1,0 +1,15 @@
+<%- include("./partials/header.ejs") %>
+   
+    <form action="/blogs/<%=blog.id%>?_method=PUT" method="POST">
+        <label for="author">Author Name</label>
+        <input id="author" name="blog[Author]" type="text", value="<%= blog.Author %>">
+        <label for="image">Image</label>
+        <input id="image" name="blog[image]" type="text", value="<%=blog.image%>" required>
+        <label for="title">Title</label>
+        <input id = "title" name="blog[title]" type="text" , value="<%=blog.title%>" required>
+        <label for="content">Content</label>
+        <textarea id = "content" name="blog[content]"><%=blog.content%></textarea>
+        <input type="submit" value="submit">
+    </form>
+          
+<%- include("./partials/footer.ejs") %>

@@ -4,6 +4,7 @@ var mongoose = require("mongoose"),
 var blogSchema = mongoose.Schema({
     Author: String,
     image: String,
+    title: String,
     content : String,
     comments : [{
         type: mongoose.Schema.Types.ObjectId,

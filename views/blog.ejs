@@ -1,10 +1,10 @@
 <%- include("./partials/header.ejs") %>
 
+<h1><%= blog.title %></h1>
 <h1><%= blog.Author%></h1>
 <img src="<%=blog.image%>">
-<h1><%= blog.discription%></h1>
-
-<button>edit</button>
+<h1><%= blog.content%></h1>
+<a href="/blogs/<%= blog._id%>/edit">edit</button>
 <form action="/blogs/<%=blog._id%>?_method=DELETE" method = "Post">
     <input type="submit" value ="delete">
 </form>
