@@ -17,17 +17,14 @@ router.get("/new", middleware.isLoggedIn, function (req, res) {
 });
 
 //Comments Create
-router.post("/", middleware.isLoggedIn, function (req, res) {
+router.post("/new", middleware.isLoggedIn, function (req, res) {
   //lookup blog using ID
   Blog.findById(req.params.id, function (err, blog) {
     if (err) {
       console.log(err);
       res.redirect("/blogs");
     } else {
-
-      var author = { id: req.user._id, 
-                    username: req.user.username};
-      var newComment = {text : req.body.comment.text , author: author}              
+      var newComment = {text : req.body.comment.text , user_id: req.user._id}              
       Comment.create(newComment, function (err, comment) {
         if (err) {
           console.log(err);
@@ -64,19 +61,15 @@ router.put("/:comment_id", middleware.checkCommentOwnership, function (req, res)
 });
 
 // COMMENT DESTROY ROUTE
-router.delete("/:comment_id", middleware.checkCommentOwnership, function (req, res) {
-  //findByIdAndRemove
-  console.log("h//////////////////")
-  Blog.findById(req.params.id, function(err, blog){
-      if(err){
-        res.redirect("/blogs/"+blog._id);
-      }else{
-        blog.comment.findByIdAndRemove(req.params.comment_id);
-        Comment.findByIdAndRemove(req.params.comment_id);
-      }
-
-  });
-  
+router.delete("/:comment_id",middleware.isLoggedIn, middleware.checkCommentOwnership, function (req, res) {
+  //findByIdAndRemov
+   Comment.findByIdAndRemove(req.params.comment_id,function(err){
+     if(err){
+       console.log(err);
+     }else{
+      res.redirect("/blogs/"+req.params.id);
+     }
+   });
 });
 
 module.exports = router;

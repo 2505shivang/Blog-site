@@ -74,7 +74,6 @@ router.delete("/:id",middleware.isLoggedIn, middleware.checkBlogOwnership, funct
     if (err) {
       res.redirect("/blogs");
     } else {
-      console.log("in delete//////////////////////////")
       res.redirect("/blogs");
     }
   });

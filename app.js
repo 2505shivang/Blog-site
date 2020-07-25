@@ -57,7 +57,7 @@ app.use(function (req, res, next) {
 //Routs 
 app.use("/", indexRoutes);
 app.use("/blogs", blogRoutes);
-app.use("/blogs/:id/", commentRoutes);
+app.use("/blogs/:id/comments", commentRoutes);
 
 
 //server start

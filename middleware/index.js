@@ -11,11 +11,10 @@ middlewareObj.checkBlogOwnership = function (req, res, next) {
                 res.redirect("/blogs");
             } else {
                 // does user own the blog?
-                console.log(foundBlog);
-                if (foundBlog.user_id == req.user._id) {
+                if (foundBlog.user_id.equals(req.user._id)) {
                     next();
                 } else {
-                    res.redirect("/blogs");
+                    res.redirect("/blogs/"+req.params.id);
                 }
             }
         });
@@ -26,17 +25,12 @@ middlewareObj.checkBlogOwnership = function (req, res, next) {
 
 middlewareObj.checkCommentOwnership = function (req, res, next) {
     if (req.isAuthenticated()) {
-        console.log("123123322222222222222222");
         Comment.findById(req.params.comment_id, function (err, foundComment) {
             if (err) {
                 res.redirect("/blogs");
             } else {
                 // does user own the comment?
-                var user = {id: req.user.id , username: req.user._id};
-                if (foundComment.author,user){
-                    console.log(foundComment);
-                    console.log("123123322222222222222222");
-                    console.log("123123322222222222222222");
+                if (foundComment.user_id.equals(req.user._id)){
                     next();
                 } else {
                     res.redirect("/blogs");
