@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Blog = require("../models/blog");
-var middleware = require("../middleware");
+var middleware = require("../middleware/index");
 
 
 //INDEX - show all blogs
@@ -18,22 +18,13 @@ router.get("/", function (req, res) {
 
 //CREATE - add new blog to DB
 router.post("/", middleware.isLoggedIn, function (req, res) {
-  // get data from form and add to blogs array
-  var name = req.body.name;
-  var image = req.body.image;
-  var desc = req.body.description;
-  var author = {
-    id: req.user._id,
-    username: req.user.username
-  }
-  var newBlog = { name: name, image: image, description: desc, author: author }
-  // Create a new blog and save to DB
-  Blog.create(newBlog, function (err, newlyCreated) {
+  req.body.blog.user_id = req.user._id;
+  Blog.create(req.body.blog, function (err, newlyCreated) {
     if (err) {
       console.log(err);
     } else {
-      //redirect back to blogs page
-      console.log(newlyCreated);
+      req.user.blogs.push(newlyCreated._id);
+      req.user.save();
       res.redirect("/blogs");
     }
   });
@@ -51,22 +42,21 @@ router.get("/:id", function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      console.log(foundBlog)
       //render show template with that blog
       res.render("blogs/show", { blog: foundBlog });
     }
   });
 });
 
-// EDIT CAMPGROUND ROUTE
-router.get("/:id/edit", middleware.checkBlogOwnership, function (req, res) {
+// EDIT Blogs ROUTE
+router.get("/:id/edit", middleware.isLoggedIn, middleware.checkBlogOwnership, function (req, res) {
   Blog.findById(req.params.id, function (err, foundBlog) {
     res.render("blogs/edit", { blog: foundBlog });
   });
 });
 
-// UPDATE CAMPGROUND ROUTE
-router.put("/:id", middleware.checkBlogOwnership, function (req, res) {
+// UPDATE Blogs ROUTE
+router.put("/:id",middleware.isLoggedIn, middleware.checkBlogOwnership, function (req, res) {
   // find and update the correct blog
   Blog.findByIdAndUpdate(req.params.id, req.body.blog, function (err, updatedBlog) {
     if (err) {
@@ -78,12 +68,13 @@ router.put("/:id", middleware.checkBlogOwnership, function (req, res) {
   });
 });
 
-// DESTROY CAMPGROUND ROUTE
-router.delete("/:id", middleware.checkBlogOwnership, function (req, res) {
+// DESTROY Blogs ROUTE
+router.delete("/:id",middleware.isLoggedIn, middleware.checkBlogOwnership, function (req, res) {
   Blog.findByIdAndRemove(req.params.id, function (err) {
     if (err) {
       res.redirect("/blogs");
     } else {
+      console.log("in delete//////////////////////////")
       res.redirect("/blogs");
     }
   });

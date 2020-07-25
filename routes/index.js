@@ -1,25 +1,26 @@
-var express = require("express");
-var router = express.Router();
-var passport = require("passport");
-var User = require("../models/user");
+var express = require("express"),
+    router = express.Router(),
+    passport = require("passport"),
+    User = require("../models/user"),
+    middleware  = require("../middleware/index");
 
 //root route
 router.get("/", function (req, res) {
   res.render("landing");
 });
 
-// show register form
-router.get("/register", function (req, res) {
-  res.render("register");
+// show signup form
+router.get("/signup", function (req, res) {
+  res.render("signup");
 });
 
 //handle sign up logic
-router.post("/register", function (req, res) {
+router.post("/signup", function (req, res) {
   var newUser = new User({ username: req.body.username });
   User.register(newUser, req.body.password, function (err, user) {
     if (err) {
       console.log(err);
-      return res.render("register");
+      return res.render("signup");
     }
     passport.authenticate("local")(req, res, function () {
       res.redirect("/blogs");
@@ -41,17 +42,9 @@ router.post("/login", passport.authenticate("local",
   });
 
 // logout route
-router.get("/logout", function (req, res) {
+router.get("/logout", middleware.isLoggedIn, function (req, res) {
   req.logout();
   res.redirect("/blogs");
 });
-
-//middleware
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/login");
-}
 
 module.exports = router;

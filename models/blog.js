@@ -6,6 +6,7 @@ var blogSchema = mongoose.Schema({
     image: String,
     title: String,
     content : String,
+    user_id: String,
     comments : [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comment'
