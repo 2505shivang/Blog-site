@@ -3,16 +3,16 @@
   <header class="jumbotron">
     <div class="container">
       <h1>Welcome To Blogger Point!</h1>
-      <p>View our hand-picked blogs from all over the world</p>
+      <p></p>
       <p>
-        <a class="btn btn-primary btn-large" href="/blogs/new">Add New blog</a>
+        <a class="btn btn-primary btn-large" style="color:white; background-color:black;" href="/blogs/new">Add New blog</a>
       </p>
 
   
 
-        <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+        <div class="row text-center" style="display:-webkit-inline-box; flex-wrap: wrap;">
           <% blogs.forEach(function(blog){ %>
-          <div class="col-md-3 col-sm-6">
+          <div class="col-md-3 col-sm-6" >
             <div class="thumbnail">
               <img src="<%= blog.image %>">
               <div class="caption">
@@ -22,7 +22,7 @@
                   <h4><%= blog.title %></h4>
               </div>
               <p>
-                <a href="/blogs/<%= blog._id %>" class="btn btn-primary">More Info</a>
+                <a href="/blogs/<%= blog._id %>" class="btn btn-primary">Read Blog!</a>
               </p>
             </div>
           </div>
