@@ -10,17 +10,18 @@
 
   
 
-        <div class="row text-center" style="display:-webkit-inline-box; flex-wrap: wrap;">
+        <div class="row text-center" >
           <% blogs.forEach(function(blog){ %>
-          <div class="col-md-3 col-sm-6" >
+          <div class="col-md-3 col-sm-9" >
             <div class="thumbnail">
               <img src="<%= blog.image %>">
+                <div class="title">
+                  <h3><%= blog.title %></h3>
+              </div>
               <div class="caption">
-                <h2><%= blog.Author %></h4>
+                <h4><%= "~ "+blog.Author %></h4>
               </div>
-              <div class="title">
-                  <h4><%= blog.title %></h4>
-              </div>
+            
               <p>
                 <a href="/blogs/<%= blog._id %>" class="btn btn-primary">Read Blog!</a>
               </p>
