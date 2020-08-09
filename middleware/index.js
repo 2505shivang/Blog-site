@@ -8,7 +8,7 @@ middlewareObj.checkBlogOwnership = function (req, res, next) {
     if (req.isAuthenticated()) {
         Blog.findById(req.params.id, function (err, foundBlog) {
             if (err) {
-                res.redirect("/blogs");
+                res.redirect("/blogs/");
             } else {
                 // does user own the blog?
                 if (foundBlog.user_id.equals(req.user._id)) {

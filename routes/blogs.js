@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var Blog = require("../models/blog");
 var middleware = require("../middleware/index");
+var user = require("../models/user")
 
 
 //INDEX - show all blogs

@@ -11,10 +11,11 @@
     <div class="col-md-6">
       <div class="thumbnail">
       <div style=" justify-content:center;">
+        <h2><%= blog.title %></h2>
         <img class="img-responsive "    style=" align:center; width: 100%; " src="<%= blog.image %>" />
         </div>
         <div class="caption-full">
-          <h4><a><%=blog.name%></a></h4>
+          <h4>Author:-<%=blog.Author%></h4>
           <p style=" font-weight:bolder; font-size:20px; background-color:#F5F5DC; text-align:center;"><%= blog.content %></p>
           <div style=" display: inline-flex; text-align:center;" class="">
           <button class="btn btn-success" style="color:white; background-color:black; display: inline-block;" href="/blogs/<%= blog._id %>/edit">Edit</button>

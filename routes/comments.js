@@ -24,7 +24,7 @@ router.post("/new", middleware.isLoggedIn, function (req, res) {
       console.log(err);
       res.redirect("/blogs");
     } else {
-      var newComment = {text : req.body.comment.text , user_id: req.user._id}              
+      var newComment = {text : req.body.comment.text , user:req.user.username ,user_id: req.user._id}              
       Comment.create(newComment, function (err, comment) {
         if (err) {
           console.log(err);
