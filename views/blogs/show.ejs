@@ -12,15 +12,15 @@
       <div class="thumbnail">
       <div style=" justify-content:center;">
         <h2><%= blog.title %></h2>
-        <img class="img-responsive "    style=" align:center; width: 100%; " src="<%= blog.image %>" />
+        <img class="img-responsive " style=" align:center; width: 100%; max-height:300px; " src="<%= blog.image %>" />
         </div>
         <div class="caption-full">
           <h4>Author:-<%=blog.Author%></h4>
           <p style=" font-weight:bolder; font-size:20px; background-color:#F5F5DC; text-align:center;"><%= blog.content %></p>
-          <div style=" display: inline-flex; text-align:center;" class="">
-          <button class="btn btn-success" style="color:white; background-color:black; display: inline-block;" href="/blogs/<%= blog._id %>/edit">Edit</button>
-          <form action="/blogs/<%= blog._id %>?_method=DELETE" method="POST"><button class="btn btn-success" style="color:white; background-color:black; display: inline-block;" type="submit">Delete</button></form>
-        </div>
+            <div style=" display: inline-flex; text-align:center;" class="">
+              <button class="btn btn-success" style="color:white; background-color:black; display: inline-block;" href="/blogs/<%= blog._id %>/edit">Edit</button>
+              <form action="/blogs/<%= blog._id %>?_method=DELETE" method="POST"><button class="btn btn-success" style="color:white; background-color:black; display: inline-block;" type="submit">Delete</button></form>
+            </div>
         </div>
       </div>
       <div class="well">
@@ -47,5 +47,4 @@
     </div>
   </div>
 </div>
-
 <%- include ('partials/footer.ejs'); -%>

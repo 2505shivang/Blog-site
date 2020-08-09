@@ -2,7 +2,8 @@ var express = require("express");
 var router = express.Router();
 var Blog = require("../models/blog");
 var middleware = require("../middleware/index");
-var user = require("../models/user")
+var user = require("../models/user");
+const User = require("../models/user");
 
 
 //INDEX - show all blogs
@@ -44,7 +45,14 @@ router.get("/:id", function (req, res) {
       console.log(err);
     } else {
       //render show template with that blog
-      res.render("blogs/show", { blog: foundBlog });
+      user.findById(foundBlog.user_id, function(err,founduser){
+        if(err){
+          res.redirect('/blogs/'+req.params.id);
+        }else{
+          res.render("blogs/show", { blog: foundBlog, founduser:founduser});
+        }
+      });
+      
     }
   });
 });
